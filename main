@@ -4,9 +4,9 @@ import matplotlib.animation as animation
 from matplotlib.widgets import Slider, TextBox
 
 # --- 初期パラメータ ---
-INIT_STIFFNESS = 100.0  # バネ定数（硬さ）
+INIT_STIFFNESS = 150.0  # バネ定数（硬さ）
 INIT_DAMPING = 2.5      # 減衰係数（揺れの収まりやすさ）
-INIT_MASS = 2.0          # 質点の質量
+INIT_MASS = 2.0         # 質点の質量
 
 # --- パラメータ調整 ---
 DT = 0.02        # 時間刻み (秒)
@@ -134,21 +134,21 @@ ax_color = 'lightgoldenrodyellow'
 # 1. Stiffness (剛性)
 ax_k_slider = fig.add_axes([0.15, y_base, 0.45, 0.03], facecolor=ax_color)
 ax_k_text   = fig.add_axes([0.7, y_base, 0.15, 0.03])
-s_stiffness = Slider(ax_k_slider, 'Stiffness', 10.0, 5000.0, valinit=INIT_STIFFNESS)
+s_stiffness = Slider(ax_k_slider, 'Stiffness', 1.0, 300.0, valinit=INIT_STIFFNESS)
 t_stiffness = TextBox(ax_k_text, '', initial=str(INIT_STIFFNESS))
 
 # 2. Damping (減衰)
 y_base -= h_step
 ax_d_slider = fig.add_axes([0.15, y_base, 0.45, 0.03], facecolor=ax_color)
 ax_d_text   = fig.add_axes([0.7, y_base, 0.15, 0.03])
-s_damping   = Slider(ax_d_slider, 'Damping', 0.0, 20.0, valinit=INIT_DAMPING)
+s_damping   = Slider(ax_d_slider, 'Damping', 0.0, 10.0, valinit=INIT_DAMPING)
 t_damping   = TextBox(ax_d_text, '', initial=str(INIT_DAMPING))
 
 # 3. Mass (質量)
 y_base -= h_step
 ax_p_slider = fig.add_axes([0.15, y_base, 0.45, 0.03], facecolor=ax_color)
 ax_p_text   = fig.add_axes([0.7, y_base, 0.15, 0.03])
-s_mass  = Slider(ax_p_slider, 'Mass', 0.0, 10000.0, valinit=INIT_MASS)
+s_mass  = Slider(ax_p_slider, 'Mass', 0.0, 10.0, valinit=INIT_MASS)
 t_mass  = TextBox(ax_p_text, '', initial=str(INIT_MASS))
 
 # --- コールバック関数 (同期処理) ---
@@ -249,9 +249,9 @@ def animate(frame):
     lines.set_data(x_list, y_list)
 
     # 材質に応じて色を変える演出
-    if params['stiffness'] < 300:
+    if params['stiffness'] < 100:
         lines.set_color('#32CD32') # Green (Slime)
-    elif params['stiffness'] > 3000:
+    elif params['stiffness'] > 200:
         lines.set_color('#606060') # Gray (Hard)
     else:
         lines.set_color('#0078D7') # Blue (Standard)
